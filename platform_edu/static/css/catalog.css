@@ -1,0 +1,29 @@
+body {
+    background-color: #d0e5e8;
+    color: #000;
+}
+h1 {
+    text-align: center;
+}
+a {
+    color: #797a7c;
+}
+
+div.catalogTable {
+    margin: auto;
+    border: 2px solid #000000;
+    text-align: center;
+    box-shadow: 0px 18px 40px 10px rgba(0,0,0,0.77);
+}
+.divTable.catalogTable .divTableCell, .divTable.catalogTable .divTableHead {
+    border: 1px solid #AAAAAA;
+}
+.divTable.catalogTable .divTableBody .divTableCell {
+    font-size: 20px;
+    padding: 10px 10px;
+}
+
+.divTable{ display: table; }
+.divTableRow { display: table-row; }
+.divTableCell, .divTableHead { display: table-cell;}
+.divTableBody { display: table-row-group;}

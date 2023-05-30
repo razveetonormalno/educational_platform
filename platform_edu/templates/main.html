@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html; charset=utf-8" />
+		<title>Аптека</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/catalog.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+	</head>
+	<body>
+        <div id="wraper">
+            <header>
+                <div class="head">
+                    <div id="title">
+                        <img class="head-block" id="icon" src="{% static 'images/icons8-plus-800.png' %}">
+                        <h1 class="head-block">Аптека</h1>
+                    </div>
+
+                    <h3 class="head-block">
+                        <a href="/Users/maksim/Desktop/Web/Lab_5/main.html">Главная</a>
+                        <a href="/Users/maksim/Desktop/Web/Lab_5/index.html">Разделы</a>
+                        <a href="{% url 'login' %}">Авторизация</a>
+                        <a href="#">Контакты</a>
+                    </h3>
+                </div>
+            </header>
+
+            <main>
+                <h1>Каталог</h1>
+                <div class="divTable catalogTable">
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableCell"><a href="beauti.html">Красота и здоровье</a></div>
+                            <div class="divTableCell"><a href="cosmetic.html">Активная косметика</a></div>
+                            <div class="divTableCell"><a href="diet.html">Лекарства и БАДы</a></div>
+                        </div>
+
+                        <div class="divTableRow">
+                            <div class="divTableCell"><a href="mother.html">Мама и малыш</a></div>
+                            <div class="divTableCell"><a href="tech.html">Медицинские приборы</a></div>
+                            <div class="divTableCell"><a href="ortho.html">Ортопедия</a></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer>
+                <div>
+                    <p>Пищулин М.С.</p>
+                    <p>Группа 4312</p>
+                    <p>mrdjon0506@gmail.com</p>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
