@@ -1,0 +1,61 @@
+/*.clear {*/
+/*	clear: both;*/
+/*	float: left;*/
+/*}*/
+
+.buttonStyle {
+    text-align: center;
+	width: 90px;
+	height: 40px;
+	cursor: pointer;
+	background: #fff;
+	border: 1.5px solid rgb(177, 203, 255);
+    margin-top: 10px;
+    border-radius: 23px;
+}
+
+.buttonStyle:hover {
+	background: #0077FF;
+	color: #fff;
+}
+
+.buttonStyle:active {
+	background: #0757b3;
+	color: #fff;
+}
+
+.showPictures {
+	border: 1px solid silver;
+	width: 90%;
+	height: 90%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-radius: 30px;
+	margin-left: 5%;
+}
+
+#fieldForTagsOfPicture {
+	padding-left: 10px;
+	margin-top: 10px;
+	margin-left: 6%;
+	width: 300px;
+    height: 25px;
+    border: 1.5px solid rgb(177, 203, 255);
+    border-radius: 23px;
+}
+
+.showPictures span {
+	margin: 2%;
+}
+
+.showPictures button {
+	margin-top: 10px;
+	margin-left: 350px;
+}
+
+#newPicture {
+	margin-top: 10px;
+	margin-left: 100px;
+	border: 2px solid black;
+    visibility: hidden;
+}

@@ -1,0 +1,219 @@
+.clear {
+	clear: both;
+	float: left;
+}
+
+.mainTheme {
+	margin-top: 50px;
+	flex: 1 0 auto;
+	min-height: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.footerSiteName h1 {
+	margin: auto;
+	margin-left: 10px;
+}
+
+.footerNavigation nav {
+	margin-right: 10px;
+	margin-top: 11px;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+.contact {
+	margin-left: 10px;
+}
+
+.contact span {
+	margin-left: 10px;
+}
+
+.siteMap {
+	margin-right: 10px;
+}
+
+.mainLogo img {
+	border: 0px solid silver;
+	width: 300px;
+	height: 300px;
+	border-radius: 10px;
+	float: right;
+	margin-top: 2%;
+	margin-right: 2%;
+}
+
+.rightInfo {
+	border: 1px solid silver;
+	background: #004EA6;
+	color: #FFFFFF;
+	width: 314px;
+	height: 530px;
+	float: right;
+	margin-right: 2%;
+	margin-top: 3%;
+	border-radius: 10px;
+}
+
+.mainLogoInfo {
+	float: right;
+	padding: 3%;
+	margin-top: 3%;
+}
+
+.mainLogoInfo span {
+	margin-left: 5%;
+}
+
+.centerInfo {
+	margin-top: 2%;
+	margin-left: 2%;
+}
+
+.logOrRegRefBlock {
+	border-radius: 5px;
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.logOrRegRefBlock button {
+	background-color: #FFFFFF;
+	border-radius: 10px;
+	border: 0.5px solid silver;
+	font-family: Comic Sans MS;
+	width: 45%;
+}
+
+.logOrRegRefBlock button:hover {
+	background-color: #0077FF;
+	color: #FFFFFF;
+	border: 0px solid silver;
+	cursor: pointer;
+}
+
+.logOrRegRefBlock button:active {
+	background-color: #0077FF;
+	color: #FFFFFF;
+	border: 0px solid silver;
+}
+
+.videoInMainPage {
+	width: 100%;
+	margin-bottom: 2%;
+}
+
+.videoInMainPage video {
+	width: 802px;
+	border-radius: 5px;
+}
+
+.FAQTheme {
+	margin-top: 50px;
+	flex: 1 0 auto;
+	min-height: 100%;
+}
+
+.FAQTheme ul, h3{
+	margin-left: 2%;
+}
+
+.tabs a span {
+	padding: 5px;
+	cursor: pointer;
+}
+
+.tabs a span.active {
+	background: #004EA6;
+	color: #fff;
+}
+
+.tabs a span.hover {
+	background: #0077FF;
+	color: #fff;
+}
+
+.content {
+	border: 1px solid silver;
+	border-radius: 5px;
+}
+
+
+.inputStyleDescription {
+	border-radius: 3px;
+	height: 25px;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 363px;
+	font-family: Comic Sans MS;
+}
+
+.inputStyleTags {
+	border-radius: 3px;
+	height: 25px;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 363px;
+	font-family: Comic Sans MS;
+}
+
+.buttonStyle {
+	font-family: Comic Sans MS;
+	margin-bottom: 10px;
+	width: 100px;
+	height: 25px;
+	cursor: pointer;
+	margin-left: 279px;
+	background: #fff;
+	border-radius: 5px;
+}
+
+.buttonStyle:hover {
+	background: #0077FF;
+	color: #fff;
+}
+
+.buttonStyle:active {
+	background: #004EA6;
+	color: #fff;
+}
+
+.showPictures {
+	border: 1px solid silver;
+	width: 90%;
+	height: 90%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	margin-left: 5%;
+}
+
+#fieldForTagsOfOicture {
+	border-radius: 3px;
+	height: 25px;
+	width: 363px;
+	font-family: Comic Sans MS;
+	margin-top: 10px;
+	margin-left: 6%;
+}
+
+.showPictures span {
+	margin: 2%;
+}
+
+.showPictures button {
+	margin-top: 10px;
+	margin-left: 350px;
+}
+
+#newPicture {
+	margin-top: 10px;
+	margin-left: 100px;
+}
