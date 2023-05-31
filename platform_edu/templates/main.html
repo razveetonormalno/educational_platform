@@ -17,11 +17,22 @@
                     </div>
 
                     <h3 class="head-block">
-                        <a href="/Users/maksim/Desktop/Web/Lab_5/main.html">Главная</a>
-                        <a href="/Users/maksim/Desktop/Web/Lab_5/index.html">Разделы</a>
-                        <a href="{% url 'login' %}">Авторизация</a>
-<!--                        <a href="{% url 'registration' %}">Регистрация</a>-->
-                        <a href="#">Контакты</a>
+<!--                        <a href="/Users/maksim/Desktop/Web/Lab_5/main.html">Главная</a>-->
+<!--                        <a href="/Users/maksim/Desktop/Web/Lab_5/index.html">Разделы</a>-->
+                        {% if user.is_authenticated %}
+                            <a href="/Users/maksim/Desktop/Web/Lab_5/main.html">Главная</a>
+                            <a href="/Users/maksim/Desktop/Web/Lab_5/index.html">Разделы</a>
+                            <a href="#">Контакты</a>
+                            <a href="/accounts/logout/">Выход</a>
+                            <div class="welcome">
+                                <h2 style="text-align: left;">Добро пожаловать, {{ user.get_username }}</h2>
+                            </div>
+                        {% else %}
+                            <a href="/Users/maksim/Desktop/Web/Lab_5/main.html">Главная</a>
+                            <a href="/Users/maksim/Desktop/Web/Lab_5/index.html">Разделы</a>
+                            <a href="{% url 'login' %}">Авторизация</a>
+                            <a href="#">Контакты</a>
+                        {% endif %}
                     </h3>
                 </div>
             </header>
