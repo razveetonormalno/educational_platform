@@ -1,4 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
+
+# print(Group.objects.get(name="Students"))
+
+# class UserProfile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
 class EducationalInstitution(models.Model):
@@ -32,7 +39,7 @@ class Administrator(models.Model):
     mail = models.CharField(max_length=255)
 
 
-class Group(models.Model):
+class Groups(models.Model):
     courses_list = models.JSONField()
     student_list = models.JSONField()
     description = models.TextField()
@@ -51,14 +58,12 @@ class Homework(models.Model):
     description = models.TextField()
     task = models.FileField()
 
-
 class Lesson(models.Model):
     id_homework = models.ForeignKey(Homework, on_delete=models.CASCADE)
     id_group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
-
 class Student(models.Model):
-    marks_list = models.JSONField()
+    marks_list = models.JSONField(default=dict)
     login = models.CharField(max_length=32)
     password = models.CharField(max_length=32)
     surname = models.CharField(max_length=100)
@@ -66,7 +71,6 @@ class Student(models.Model):
     patronymic = models.CharField(max_length=100)
     phone = models.CharField(max_length=11)
     mail = models.CharField(max_length=255)
-
 
 class Mark(models.Model):
     id_homework = models.JSONField()
