@@ -1,0 +1,42 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block sidebar %}
+    <div class="sidenav">
+        {% for bar in sidebar %}
+        <div><a href={{ bar.1 }}>{{ bar.0 }}</a></div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="addGroup">
+        <form action="add-new" method="POST">
+            {% csrf_token %}
+            <button type="submit">Добавить группу</button>
+        </form>
+    </div>
+
+    <div class="main_content">
+        {% if not show %}
+            {% if content %}
+                {% for item in content %}
+                  <a href="/home/admin-groups/{{ item.1 }}"><h2>{{ item.0 }}</h2></a>
+                {% endfor %}
+            {% else %}
+                <h1>На данный момент в списке нет групп!<br>Добавьте первую группу!</h1>
+            {% endif %}
+        {% else %}
+            {% for item in content %}
+                <a href="/home/admin-groups/{{ item.1 }}"><h2>{{ item.0 }}</h2></a>
+                {% if item.1 == group_id %}
+                    {% for i in students %}
+                        <h3>{{ i }}</h3>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,18 +1,32 @@
-{% extends "base_generic.html" %}
-
-{% block content %}
-<h1>Local Library Home</h1>
-
-  <p>Welcome to <em>LocalLibrary</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
-
-<h2>Dynamic content</h2>
-
-  <p>The library has the following record counts:</p>
-  <ul>
-    <li><strong>Books:</strong> {{ num_books }}</li>
-    <li><strong>Copies:</strong> {{ num_instances }}</li>
-    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
-    <li><strong>Authors:</strong> {{ num_authors }}</li>
-  </ul>
-
-{% endblock %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>EasyEdu</title>
+    <link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
+</head>
+<body>
+    <header>
+        <h1>EasyEdu</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'registration' %}">Регистрация</a></li>
+                <li><a href="{% url 'login' %}">Авторизация</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="box">
+              <h2>О нас</h2>
+              <p>Онлайн платформа для проведения занятий</p>
+              <p>Даём возможность школам и вузам проводить онлайн занятия на нашей платформе</p>
+            </div>
+          </div>
+    </main>
+    <footer>
+        <p>EasyEdu &copy; 2021</p>
+    </footer>
+</body>
+</html>

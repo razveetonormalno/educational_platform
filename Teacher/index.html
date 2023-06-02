@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>EasyEdu</title>
-    <link rel="stylesheet" href="css/main.css">
+    <meta charset="utf-8">
+    {% block title %}<title>EasyEdu</title>{% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
     <div id="wraper">
@@ -11,7 +12,7 @@
             <h1>EasyEdu</h1>
             <nav>
                 <ul>
-                    <li><a href="#">Выход</a></li>
+                    <li><a href="{% url '' %}">Выход</a></li>
                 </ul>
             </nav>
         </header>
