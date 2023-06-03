@@ -1,0 +1,42 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block sidebar %}
+    <div class="sidenav">
+        {% for bar in sidebar %}
+        <div><a href={{ bar.1 }}>{{ bar.0 }}</a></div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="addGroup">
+        <form action="add-new" method="POST">
+            {% csrf_token %}
+            <button type="submit">Добавить учителя</button>
+        </form>
+    </div>
+
+    <div class="main_content">
+        {% if content %}
+            {% if show %}
+                {% for item in content %}
+                    <a href="/home/admin-teachers/{{ item.0 }}"><h2>{{ item.1 }}</h2></a>
+                    {% if item.0 == teacher_id %}
+                        {% for i in teacher %}
+                            <h3>{{ i }}</h3>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for item in content %}
+                    <a href="/home/admin-teachers/{{ item.0 }}"><h2>{{ item.1 }}</h2></a>
+                {% endfor %}
+            {% endif %}
+        {% else %}
+            <h1>На данный момент в списке нет учителей!<br>Добавьте первого учителя!</h1>
+        {% endif %}
+    </div>
+{% endblock %}

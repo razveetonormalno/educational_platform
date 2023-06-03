@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div id="metered-frame">
+        <button>INSIDE</button>
+
+    </div>
+
+    <button>OUT OF FRAME</button>
+
+    <script src="https://cdn.metered.ca/sdk/frame/1.4.3/sdk-frame.min.js"></script>
+    <script type="text/javascript" src={% static "js/jquery-3.6.4.min.js" %}></script>
+    <script>
+        var frame = new MeteredFrame();
+        frame.init({
+            // This URL will be different. It will be unique based on your appName and roomName
+            roomURL: "{{ url }}",
+        }, document.getElementById("metered-frame"));
+    </script>
+    <script>
+        const data = "{{ url }}".split('/');
+        console.log(data[data.length - 1]);
+
+        frame.on("meetingLeft", function(meetingLeft) {
+            // данные для отправки
+            const tom = {
+                name: "Tom",
+                age: 37
+            };
+            // кодируем объект в формат json
+            const data = JSON.stringify(tom);
+            const xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "/user");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onload = () => {
+                if (xhr.status == 200) {
+                    const user = JSON.parse(xhr.responseText)
+                    console.log(user.name, "-", user.age);
+                } else {
+                    console.log("Server response: ", xhr.statusText);
+                }
+            };
+            xhr.send(data);
+        });
+    </script>
+</body>
+</html>
