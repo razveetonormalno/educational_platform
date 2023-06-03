@@ -125,6 +125,11 @@ main {
     flex-grow: 1;
 }
 
+.main_content {
+    /*position: static;*/
+    width: 500px;
+}
+
 #wraper {
     min-height: 100%;
     display: flex;

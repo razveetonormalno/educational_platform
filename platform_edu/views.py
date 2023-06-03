@@ -34,7 +34,6 @@ def timetable(request):
     elif "Teachers" in str(group):
         print("This is a teacher!")
         data = get_data("Teachers")
-
         content = ("Добрый вечер", "Я Учитель!")
 
     data['title'] = title
@@ -54,8 +53,47 @@ def groups(request):
 
 @group_required('Administrators')
 @login_required
-def adm_teachers(request):
-    pass
+def adm_teachers(request, teacher_id=None):
+    title = 'Список учителей'
+    data = get_data('Administrators')
+    data['title'] = title
+
+    adm = Administrator.objects.get(login=request.user.username)
+    ei = EducationalInstitution.objects.get(id=adm.ei_id)
+    if teacher_id:
+        teacher = Teacher.objects.get(id=teacher_id)
+        if ei.teachers_list:
+            teacher_data = (teacher.surname, teacher.name, teacher.patronymic,
+                            teacher.phone, teacher.mail)
+            data['show'] = True
+            data['teacher_id'] = str(teacher_id)
+            data['teacher'] = teacher_data
+
+            data['content'] = []
+            for teach_id, username in ei.teachers_list.items():
+                teacher_ = Teacher.objects.get(id=teach_id)
+                data['content'].append((teach_id, f"{teacher_.surname} {teacher_.name[0]}. "))
+        else:
+            return redirect('home/admin-teachers')
+    else:
+        if ei.teachers_list:
+            data['content'] = []
+            for teach_id, username in ei.teachers_list.items():
+                teacher = Teacher.objects.get(id=teach_id)
+                data['content'].append((teach_id, f"{teacher.surname} {teacher.name[0]}. "))
+        else:
+            data['content'] = None
+    return render(request, "administrator/teachers.html", context=data)
+
+@group_required('Administrators')
+@login_required
+def add_new_teacher(request):
+    title = 'Добавление учителей'
+    data = get_data("Administrators")
+    data['title'] = title
+
+    add_group = GroupAdd(data)
+    return render(request, "administrator/add-group.html", {"form": add_group})
 
 @group_required('Administrators')
 @login_required
@@ -107,8 +145,51 @@ def add_new_group(request):
 
 @group_required('Administrators')
 @login_required
-def adm_courses(request):
-    pass
+def adm_courses(request, course_id=None):
+    def get_teachers(teachers: dict):
+        res = []
+        for i in teachers:
+            res.append(Teacher.objects.get(id=i).name)
+        return 'Авторы: ' + ', '.join(res)
+
+    title = 'Список курсов'
+    data = get_data('Administrators')
+    data['title'] = title
+
+    adm = Administrator.objects.get(login=request.user.username)
+    ei = EducationalInstitution.objects.get(id=adm.ei_id)
+    if course_id:
+        course = Course.objects.get(id=course_id)
+        if ei.courses_list:
+            course_data = (get_teachers(course.teachers_list), 'Дисциплины: ' + ', '.join(course.subject_list),
+                           'Название: ' + course.name, 'Описание: ' + course.description)
+            data['course_id'] = str(course_id)
+            data['course'] = course_data
+
+            data['content'] = []
+            for crs_id, name in ei.courses_list.items():
+                data['content'].append((crs_id, course.name))
+        else:
+            return redirect('home/admin-courses')
+    else:
+        if ei.courses_list:
+            data['content'] = []
+            for crs_id in ei.courses_list:
+                course = Course.objects.get(id=crs_id)
+                data['content'].append((crs_id, course.name))
+        else:
+            data['content'] = None
+    return render(request, "administrator/courses.html", context=data)
+
+@group_required('Administrators')
+@login_required
+def add_new_course(request):
+    title = 'Добавление курсов'
+    data = get_data("Administrators")
+    data['title'] = title
+
+    add_group = GroupAdd(data)
+    return render(request, "administrator/add-group.html", {"form": add_group})
 
 
 def home_page(request):
@@ -216,6 +297,20 @@ def registration(request):
 
 def videochat(request):
     pass
+
+@group_required('Teachers')
+def create_videochat(request):
+    response = dict(create_room())
+    print(response)
+    url = f"https://easyedu.metered.live/{response['roomName']}"
+    return render(request, "teacher/new_room.html", context={"url": url, "title": "Урок"})
+
+@group_required('Teachers')
+def join_room(request, room_id=None):
+    if room_id:
+        pass
+    else:
+        raise Http404("Room is not exists")
 
 def index(request):
     return HttpResponse("Страница приложения EasyEdu.")

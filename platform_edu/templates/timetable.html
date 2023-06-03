@@ -5,15 +5,19 @@
 {% block sidebar %}
 <div class="sidenav">
   {% for bar in sidebar %}
-    <div><a>{{bar}}</a></div>
+    <div><a href={{ bar.1 }}>{{ bar.0 }}</a></div>
   {% endfor %}
 </div>
 {% endblock %}
 
 {% block content %}
-<div class="main_content">
-  {% for item in content %}
-    <h1>{{item}}</h1>
-  {% endfor %}
-</div>
+    <div class="main_content">
+        <form action="/home/videochat/create" method="POST">
+            {% csrf_token %}
+            <button type="submit">Создать комнату</button>
+        </form>
+        {% for item in content %}
+            <h1>{{item}}</h1>
+        {% endfor %}
+    </div>
 {% endblock %}

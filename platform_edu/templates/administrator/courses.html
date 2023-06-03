@@ -1,0 +1,51 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block statics %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <style>
+    .main_content {
+    width: 1000px;
+    }
+    </style>
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block sidebar %}
+    <div class="sidenav">
+        {% for bar in sidebar %}
+        <div><a href={{ bar.1 }}>{{ bar.0 }}</a></div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="addTeacher">
+        <form action="add-new" method="POST">
+            {% csrf_token %}
+            <button type="submit">Добавить курсы</button>
+        </form>
+    </div>
+
+    <div class="main_content">
+        {% if content %}
+            {% if course %}
+                {% for item in content %}
+                    <a href="/home/admin-courses/{{ item.0 }}"><h2>{{ item.1 }}</h2></a>
+                    {% if item.0 == course_id %}
+                        {% for i in course %}
+                            <h3>{{ i }}</h3>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for item in content %}
+                    <a href="/home/admin-courses/{{ item.0 }}"><h2>{{ item.1 }}</h2></a>
+                {% endfor %}
+            {% endif %}
+        {% else %}
+            <h1>На данный момент в списке нет курсов!<br>Добавьте первый курс!</h1>
+        {% endif %}
+    </div>
+{% endblock %}
