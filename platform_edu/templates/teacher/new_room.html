@@ -7,11 +7,8 @@
 </head>
 <body>
     <div id="metered-frame">
-        <button>INSIDE</button>
 
     </div>
-
-    <button>OUT OF FRAME</button>
 
     <script src="https://cdn.metered.ca/sdk/frame/1.4.3/sdk-frame.min.js"></script>
     <script type="text/javascript" src={% static "js/jquery-3.6.4.min.js" %}></script>
@@ -23,26 +20,26 @@
         }, document.getElementById("metered-frame"));
     </script>
     <script>
-        const data = "{{ url }}".split('/');
-        console.log(data[data.length - 1]);
-
         frame.on("meetingLeft", function(meetingLeft) {
+            const name = "{{ url }}".split('/');
+            console.log(name[name.length - 1]);
+
             // данные для отправки
-            const tom = {
-                name: "Tom",
-                age: 37
+            const toParse = {
+                room_name: name[name.length - 1],
             };
             // кодируем объект в формат json
-            const data = JSON.stringify(tom);
+            const data = JSON.stringify(toParse);
             const xhr = new XMLHttpRequest();
-
-            xhr.open("POST", "/user");
+            xhr.open("POST", "/home/videochat/delete");
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
             xhr.setRequestHeader("Content-Type", "application/json");
 
             xhr.onload = () => {
-                if (xhr.status == 200) {
-                    const user = JSON.parse(xhr.responseText)
-                    console.log(user.name, "-", user.age);
+                if (xhr.status === 200) {
+                    const user = JSON.parse(xhr.responseText);
+                    console.log(user);
+                    console.log(toParse);
                 } else {
                     console.log("Server response: ", xhr.statusText);
                 }

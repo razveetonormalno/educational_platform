@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponseNotFound, JsonResponse
 from .forms import UserForm, GroupAdd
 from .models import *
 from django.contrib.auth.models import Group
 from .custom import *
 from django.contrib.auth.decorators import login_required, user_passes_test
+import json
 
 
 def group_required(*group_names):
@@ -27,12 +28,29 @@ def timetable(request):
     content = tuple()
     if "Students" in str(group):
         print("This is a student!")
-        student = Student.objects.get(login=request.user.username)
         data = get_data("Students")
 
-        content = ("Добрый вечер", "Я Студент!")
+        student = Student.objects.get(login=request.user.username)
+        students_group = Groups.objects.in_bulk()
+
+        group_number = None
+        for group in students_group:
+            if str(student.pk) in students_group[group].student_list:
+                group_number = students_group[group].description
+                data['roomId'] = get_room_(group_number)
+                break
+
+        table_content = get_for_student(group_number)
+        print(table_content)
+        data['table'] = table_content
+
+        content = ("Добрый вечер", "Я Студент!", f"Группа {group_number}")
     elif "Teachers" in str(group):
         print("This is a teacher!")
+
+        teacher = Teacher.objects.get(login=request.user.username)
+        table_content = get_for_teacher(str(teacher.pk))
+
         data = get_data("Teachers")
         content = ("Добрый вечер", "Я Учитель!")
 
@@ -288,7 +306,8 @@ def registration(request):
                 raise e
         else:
             print(">>> Form is not valid")
-            return Http404(request)
+            userform = UserForm()
+            return render(request, 'registration/signup.html', {'form': userform})
 
     elif request.method == "GET":
         print("Registration >>> GET")
@@ -300,17 +319,42 @@ def videochat(request):
 
 @group_required('Teachers')
 def create_videochat(request):
-    response = dict(create_room())
+    response = create_room()
     print(response)
-    url = f"https://easyedu.metered.live/{response['roomName']}"
-    return render(request, "teacher/new_room.html", context={"url": url, "title": "Урок"})
+    return redirect(f"/home/videochat/{response['_id']}")
 
-@group_required('Teachers')
+@group_required('Teachers', "Students")
 def join_room(request, room_id=None):
     if room_id:
-        pass
+        with open('platform_edu/static/json/rooms.json') as file:
+            rooms = json.loads(file.read())
+            if room_id in rooms:
+                url = f"https://easyedu.metered.live/{rooms[room_id]['roomName']}"
+                user = User.objects.get(username=request.user.username)
+                group = user.groups.all()
+
+                if "Students" in str(group):
+                    path = "student/join_room.html"
+                elif "Teachers" in str(group):
+                    path = "teacher/new_room.html"
+
+                return render(request, path, context={"url": url, "title": "Урок"})
+            else:
+                return HttpResponseNotFound("<h1>Room does not exist</h1>")
     else:
-        raise Http404("Room is not exists")
+        return HttpResponseNotFound("<h1>Need a room's id</h1>")
+
+@group_required('Teachers')
+def delete_room(request):
+    print("DEL")
+    if request.method == "POST":
+        data = json.loads(request.body)
+        print(data)
+        delete_room(data['room_name'])
+        return JsonResponse({"res": True})
+    else:
+        print("DELETE GET >>>", request.GET)
+        return HttpResponseNotFound()
 
 def index(request):
-    return HttpResponse("Страница приложения EasyEdu.")
+    return redirect('home')

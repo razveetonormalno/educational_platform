@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 from .views import *
 
 
@@ -7,7 +7,8 @@ urlpatterns = [
     path('accounts/signup/', registration, name='registration'),
 
     path('home/videochat/create', create_videochat, name="createroom"),
-    path('home/videochat/<int:room_id>', join_room, name='join-room'),
+    path('home/videochat/delete', delete_room, name='delete-room'),
+    path('home/videochat/<str:room_id>', join_room, name='join-room'),
     # path('home/videochat/create/new', videochat_new, name="createroom"),
 
     path('home/timetable/', timetable, name="timetable"),

@@ -1,6 +1,12 @@
 {% extends "base_generic.html" %}
+{% load static %}
 
 {% block title %}{{title}}{% endblock %}
+
+{% block statics %}
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <link rel="stylesheet" href="{% static "css/table_schedule.css" %}">
+{% endblock %}
 
 {% block sidebar %}
 <div class="sidenav">
@@ -12,12 +18,47 @@
 
 {% block content %}
     <div class="main_content">
-        <form action="/home/videochat/create" method="POST">
-            {% csrf_token %}
-            <button type="submit">Создать комнату</button>
-        </form>
+        {% if content.1 == "Я Учитель!" %}
+            <form action="/home/videochat/create" method="POST">
+                {% csrf_token %}
+                <button type="submit">Создать комнату</button>
+            </form>
+        {% elif content.1 == "Я Студент!" %}
+            {% if roomId%}
+                <form action="/home/videochat/{{ roomId }}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Присоединиться к комнате</button>
+                </form>
+            {% endif %}
+        {% endif %}
+
         {% for item in content %}
             <h1>{{item}}</h1>
         {% endfor %}
+
+        <form id="form1">
+            <div class="divTable">
+                <div class="headRow">
+                  <div class="divCell">Понедельник</div>
+                  <div class="divCell">Вторник</div>
+                  <div class="divCell">Среда</div>
+                  <div class="divCell">Четверг</div>
+                  <div class="divCell">Пятница</div>
+                  <div class="divCell">Суббота</div>
+                  <div class="divCell">Воскресенье</div>
+               </div>
+                {% for row in table %}
+                    <div class="divRow">
+                        {% for day in row %}
+                            {% if day.0 != "&nbsp;" %}
+                                <div class="divCell">{{ day.0 }}<p style="font-size: 12px">{{ day.1 }}</p></div>
+                            {% else %}
+                                <div class="divCell">&nbsp;<p style="font-size: 12px">&nbsp;</p></div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
     </div>
 {% endblock %}

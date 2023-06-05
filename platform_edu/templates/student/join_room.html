@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div id="metered-frame">
+
+    </div>
+
+    <script src="https://cdn.metered.ca/sdk/frame/1.4.3/sdk-frame.min.js"></script>
+    <script>
+        var frame = new MeteredFrame();
+        frame.init({
+            // This URL will be different. It will be unique based on your appName and roomName
+            roomURL: "{{ url }}",
+            height: "750px",
+        }, document.getElementById("metered-frame"));
+    </script>
+</body>
+</html>
