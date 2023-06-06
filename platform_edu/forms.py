@@ -25,4 +25,9 @@ class UserForm(forms.Form):
     user_group = forms.ChoiceField(label="Должность", choices=groups)
 
 class GroupAdd(forms.Form):
-    file = forms.FileField(help_text=".json файл", validators=[validate_file])
+    file = forms.FileField(label="JSON файл", required=False)
+
+class HomeWork(forms.Form):
+    discipline = forms.CharField(max_length=100, label="Дисциплина")
+    description = forms.CharField(label='Описание', widget=forms.Textarea)
+    task = forms.FileField(label='Задание')

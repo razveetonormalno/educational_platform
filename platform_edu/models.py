@@ -66,17 +66,18 @@ class Administrator(models.Model):
 class Groups(models.Model):
     courses_list = models.JSONField(default=dict)
     student_list = models.JSONField()
-    description = models.CharField()
+    teachers_list = models.JSONField(default=dict)
+    description = models.CharField(unique=True)
 
 class Course(models.Model):
     teachers_list = models.JSONField()
     subject_list = models.JSONField()
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     description = models.TextField()
 
 class Homework(models.Model):
-    date = models.DateField()
-    discipline = models.CharField(200)
+    date = models.DateField(auto_now_add=True)
+    discipline = models.CharField(max_length=200)
     description = models.TextField()
     task = models.FileField()
 

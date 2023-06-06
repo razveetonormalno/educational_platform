@@ -9,6 +9,10 @@
     <div id="metered-frame">
 
     </div>
+    <form action="/home/homework/new/{{ group_id }}" method="GET">
+{#        {% csrf_token %}#}
+        <button type="submit">Задать домашнее задание</button>
+    </form>
 
     <script src="https://cdn.metered.ca/sdk/frame/1.4.3/sdk-frame.min.js"></script>
     <script type="text/javascript" src={% static "js/jquery-3.6.4.min.js" %}></script>

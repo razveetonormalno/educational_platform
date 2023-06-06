@@ -13,7 +13,7 @@
 
 {% block content %}
     <div class="addGroup">
-        <form action="add-new" method="POST">
+        <form action="add-new" method="GET">
             {% csrf_token %}
             <button type="submit">Добавить учителя</button>
         </form>

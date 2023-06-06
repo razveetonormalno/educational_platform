@@ -1,0 +1,16 @@
+form {
+    height: 60px;
+}
+
+.container {
+    width: 87%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.v-center {
+    display: flex;
+    padding-top: 5px;
+    justify-content: center;
+}

@@ -1,0 +1,37 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block statics %}
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <style>
+    p {
+        vertical-align: top;
+    }
+    </style>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="sidenav">
+        {% for bar in sidebar %}
+            <div><a href={{ bar.1 }}>{{ bar.0 }}</a></div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="main_content">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div><input type="submit" value="Отправить"></div>
+        </form>
+        {% if succes == 1 %}
+            <h2>Домашняя работа успешно загружена!</h2>
+            <form action="/home" method="GET">
+                <button type="submit">Вернуться на главную</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block statics %}
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <link rel="stylesheet" href="{% static "css/table_schedule.css" %}">
+{% endblock %}
+
+{% block sidebar %}
+    <div class="sidenav">
+        {% for bar in sidebar %}
+            <div><a href={{ bar.1 }}>{{ bar.0 }}</a></div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="main_content">
+{#        {% for item in content %}#}
+{#            <h1>{{item}}</h1>#}
+{#        {% endfor %}#}
+
+        {% if content %}
+            {% for item in content %}
+                <a href="/home/groups/{{ item.1 }}"><h2>{{ item.0 }}</h2></a>
+                {% if item.1 == group_id %}
+                    <form id="form1">
+                        <div class="divTable">
+                            <div class="headRow">
+                              <div class="divCell">ФИО</div>
+                              <div class="divCell">Телефон</div>
+                              <div class="divCell">Почта</div>
+                           </div>
+                            {% for st in students %}
+                                <div class="divRow">
+                                    {% for info in st %}
+                                        <div class="divCell">{{ info }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <form id="form1">
+                <div class="divTable">
+                    <div class="headRow">
+                      <div class="divCell">ФИО</div>
+                      <div class="divCell">Телефон</div>
+                      <div class="divCell">Почта</div>
+                   </div>
+                    {% for st in students %}
+                        <div class="divRow">
+                            {% for info in st %}
+                                <div class="divCell">{{ info }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

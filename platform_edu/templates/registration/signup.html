@@ -1,15 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>METANIT.COM</title>
-</head>
-<body>
-    <h2>User form</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Отправить">
-    </form>
-</body>
-</html>
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block statics %}
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <link rel="stylesheet" href="{% static "css/add_new.css" %}">
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block sidebar %}
+    <div class="sidenav">
+        {% for bar in sidebar %}
+            <div><a href={{ bar.1 }}>{{ bar.0 }}</a></div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="v-center">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div><input type="submit" value="Отправить"></div>
+            </form>
+        </div>
+
+        <div class="v-center">
+            {% if check %}
+                <h3>Выбранный файл не подходит по формату!</h3>
+            {% endif %}
+            {% if account == 1 %}
+                <h3>Выбранный файл содержит уже существующие аккаунты!<br>Существуют: {{ accounts }}</h3>
+            {% elif account == 0 %}
+                <h3>Готово! Аккаунты добавлены</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

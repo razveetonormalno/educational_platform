@@ -9,23 +9,25 @@
 {% endblock %}
 
 {% block sidebar %}
-<div class="sidenav">
-  {% for bar in sidebar %}
-    <div><a href={{ bar.1 }}>{{ bar.0 }}</a></div>
-  {% endfor %}
-</div>
+    <div class="sidenav">
+        {% for bar in sidebar %}
+            <div><a href={{ bar.1 }}>{{ bar.0 }}</a></div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block content %}
     <div class="main_content">
         {% if content.1 == "Я Учитель!" %}
-            <form action="/home/videochat/create" method="POST">
-                {% csrf_token %}
-                <button type="submit">Создать комнату</button>
-            </form>
+            {% if ready %}
+                <form action="/home/videochat/create/{{ ready }}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Создать комнату</button>
+                </form>
+            {% endif %}
         {% elif content.1 == "Я Студент!" %}
-            {% if roomId%}
-                <form action="/home/videochat/{{ roomId }}" method="POST">
+            {% if roomId %}
+                <form action="/home/videochat/?room_id={{ roomId }}" method="POST">
                     {% csrf_token %}
                     <button type="submit">Присоединиться к комнате</button>
                 </form>

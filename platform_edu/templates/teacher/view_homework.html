@@ -1,0 +1,21 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block sidebar %}
+    <div class="sidenav">
+        {% for bar in sidebar %}
+        <div><a href={{ bar.1 }}>{{ bar.0 }}</a></div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="main_content">
+        {% for work in homeworks %}
+            <a href="{{ work.0 }}"><h2>{{ work.1 }}</h2></a>
+            <h3 style="padding-bottom: 10px">{{ work.2 }}</h3>
+        {% endfor %}
+    </div>
+{% endblock %}
