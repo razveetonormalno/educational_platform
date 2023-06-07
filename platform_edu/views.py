@@ -704,40 +704,8 @@ def delete_room(request):
 
 @login_required
 def get_courses(request, courses_id):
-    def get_teachers(teachers: dict):
-        res = []
-        for i in teachers:
-            res.append(Teacher.objects.get(id=i).name)
-        return 'Авторы: ' + ', '.join(res)
-
-    title = 'Список курсов'
-    data = get_data('Administrators')
-    data['title'] = title
-
-    adm = Administrator.objects.get(login=request.user.username)
-    ei = EducationalInstitution.objects.get(id=adm.ei_id)
-    if course_id:
-        course = Course.objects.get(id=course_id)
-        if ei.courses_list:
-            course_data = (get_teachers(course.teachers_list), 'Дисциплины: ' + ', '.join(course.subject_list),
-                           'Название: ' + course.name, 'Описание: ' + course.description)
-            data['course_id'] = str(course_id)
-            data['course'] = course_data
-
-            data['content'] = []
-            for crs_id, name in ei.courses_list.items():
-                data['content'].append((crs_id, name))
-        else:
-            return redirect('home/admin-courses')
-    else:
-        if ei.courses_list:
-            data['content'] = []
-            for crs_id in ei.courses_list:
-                course = Course.objects.get(id=crs_id)
-                data['content'].append((crs_id, course.name))
-        else:
-            data['content'] = None
-    return render(request, "administrator/courses.html", context=data)
+    # TODO: Make courses view for Teacher and Student
+    pass
 
 def index(request):
     return redirect('home')
